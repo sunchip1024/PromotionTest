@@ -1,0 +1,99 @@
+.slide, .slide-container {
+    z-index: -2;
+}
+
+#sticky-container {
+    margin: 0;
+    position: relative;
+}
+
+.slide {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.slide canvas {
+    z-index: -1;
+}
+
+#slide1 {
+    background-color: rgb(75, 75, 75);
+    background: linear-gradient(to top, rgb(75, 75, 75), white);
+}
+
+#slide1 h1 {
+    width: 100vw;
+    height: 15vh;
+    padding-top: 5vh;
+    padding-bottom: 0;
+    margin: 0;
+
+    color: white;
+    font-size: xxx-large;
+    text-align: center;
+    line-height: 10vh;
+
+    box-sizing: border-box;
+}
+
+#slide1 p {
+    width: 100vw;
+    height: 3vh;
+    margin: 0;
+
+    color: white;
+    font-size: x-large;
+    font-weight: bold;
+    text-align: center;
+    line-height: 3vh;
+}
+
+#slide1 canvas {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#slide2 {
+    background-color: rgb(255, 255, 255);
+}
+
+#slide2 h1 {
+    width: 50vw;
+    height: 10vh;
+    margin: 0;
+
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    text-align: center;
+    line-height: 10vh;
+}
+
+#slide2 #description {
+    width: 50vw;
+    height: 90vh;
+    margin: 0;
+
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+#slide2 canvas {
+    width: 50vw;
+    height: 100vh;
+    margin: 0;
+
+    position: absolute;
+    left: 0;
+
+}
