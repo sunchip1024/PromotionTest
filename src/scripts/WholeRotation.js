@@ -1,11 +1,13 @@
 import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/Orbitcontrols";
 import { HeadphoneOne, HeadphoneTwo, HeadphoneThree } from "./Headphone";
 
 export function execute() {
     // Set Basic Properties
     const MODEL_LENGTH = 3;
-    const MODEL_RADIUS = 12;
-    const CAMERA_RADIUS = 23;
+    const MODEL_RADIUS = 15;
+    const CAMERA_RADIUS = 25;
+    const CAMERA_HORIZONTAL_ANGLE = 2 * Math.PI / 3;
 
     // Set Canvas
     const CANVAS = document.querySelector("#whole-objects-rotation");
@@ -24,9 +26,12 @@ export function execute() {
         0.1,
         50
     );
+    CAMERA.position.set(0, 0, CAMERA_RADIUS);
+    /*
     CAMERA_ORIGIN.add(CAMERA);
     CAMERA.position.set(0, 0, CAMERA_RADIUS);
     CAMERA.lookAt(CAMERA_ORIGIN.position);
+    */
 
     // Set Renderer
     const RENDERER = new THREE.WebGLRenderer({canvas: CANVAS, antialias: true});
@@ -43,40 +48,54 @@ export function execute() {
     }
     window.addEventListener("resize", setSize);
 
-    
-    
+    // Set OrbitControls
+    const CONTROLS = new OrbitControls( CAMERA, RENDERER.domElement );
+    CONTROLS.enableDamping = true;
+    CONTROLS.dampingFactor = 0.05;
+    CONTROLS.screenSpacePanning = false;
+    CONTROLS.enableZoom = false;
+    CONTROLS.rotateSpeed = 0.3;
+    CONTROLS.minPolarAngle = Math.PI / 2;
+    CONTROLS.maxPolarAngle = Math.PI / 2;
+    CONTROLS.minAzimuthAngle = -(CAMERA_HORIZONTAL_ANGLE / 2);
+    CONTROLS.maxAzimuthAngle = (CAMERA_HORIZONTAL_ANGLE / 2);
+
     // Set Light
     const LIGHT = new THREE.AmbientLight();
     SCENE.add(LIGHT);
 
     // Load Headset Model
-    const models = [];
+    let ROTATE_UNIT = CAMERA_HORIZONTAL_ANGLE / (MODEL_LENGTH - 1);
+    function GetModelRotation(index) { return -( CAMERA_HORIZONTAL_ANGLE / 2 ) + ROTATE_UNIT * index; }
+    function GetModelPosition(index) {
+        const theta = GetModelRotation(index);
+        return new THREE.Vector3(MODEL_RADIUS * Math.sin(theta), 0, MODEL_RADIUS * Math.cos(theta));
+    }
 
-    let ROTATE_UNIT = 2 * Math.PI / MODEL_LENGTH;
+    const models = [];
     models.push(new HeadphoneOne({
         scene: SCENE, 
-        position: new THREE.Vector3(MODEL_RADIUS * Math.sin(ROTATE_UNIT * 0), 0, MODEL_RADIUS * Math.cos(ROTATE_UNIT * 0)),
-        rotation: new THREE.Vector3(0, ROTATE_UNIT * 0, 0)
+        position: GetModelPosition(0),
+        rotation: new THREE.Vector3(0, GetModelRotation(0), 0)
     }));
     models.push(new HeadphoneTwo({
         scene: SCENE, 
-        position: new THREE.Vector3(MODEL_RADIUS * Math.sin(ROTATE_UNIT * 1), 0, MODEL_RADIUS * Math.cos(ROTATE_UNIT * 1)),
-        rotation: new THREE.Vector3(0, ROTATE_UNIT * 1, 0)
+        position: GetModelPosition(1),
+        rotation: new THREE.Vector3(0, GetModelRotation(1), 0)
     }));
     models.push(new HeadphoneThree({
         scene: SCENE, 
-        position: new THREE.Vector3(MODEL_RADIUS * Math.sin(ROTATE_UNIT * 2), 0, MODEL_RADIUS * Math.cos(ROTATE_UNIT * 2)),
-        rotation: new THREE.Vector3(0, ROTATE_UNIT * 2, 0)
+        position: GetModelPosition(2),
+        rotation: new THREE.Vector3(0, GetModelRotation(2), 0)
     }));
 
     // Update Function Logic
     const clock = new THREE.Clock();
     function draw() {
-        // TO-DO : Rotate 'CAMERA_ORIGIN' to drag raycast
-        CAMERA_ORIGIN.rotation.y += 0.1 * Math.PI * clock.getDelta();
-
         // Camera is Always look at center
         CAMERA.lookAt(CAMERA_ORIGIN.position);
+
+        CONTROLS.update();
 
         // Rendering
         RENDERER.render(SCENE, CAMERA);

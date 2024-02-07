@@ -1,7 +1,3 @@
-.slide, .slide-container {
-    z-index: -2;
-}
-
 #sticky-container {
     margin: 0;
     position: relative;
@@ -15,8 +11,14 @@
     box-sizing: border-box;
 }
 
-.slide canvas {
-    z-index: -1;
+.slide > .slide-container {
+    position: relative;
+    z-index: 1;
+}
+
+.slide > canvas {
+    position: absolute;
+    z-index: 0;
 }
 
 #slide1 {

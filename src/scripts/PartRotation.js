@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/Orbitcontrols";
 import { HeadphoneOne, HeadphoneTwo, HeadphoneThree } from "./Headphone";
 
 export function execute(modelIndex) {
@@ -42,6 +43,13 @@ export function execute(modelIndex) {
 	CAMERA.add( pointLight );
     SCENE.add(CAMERA);
 
+    const CONTROLS = new OrbitControls( CAMERA, RENDERER.domElement );
+    CONTROLS.enableDamping = true;
+    CONTROLS.dampingFactor = 0.05;
+    CONTROLS.screenSpacePanning = false;
+    CONTROLS.minDistance = CAMERA_RADIUS;
+    CONTROLS.maxDistance = 1.5 * CAMERA_RADIUS;
+
     // Load Headset Model
     let model = undefined;
     if(modelIndex === 1) {
@@ -53,17 +61,10 @@ export function execute(modelIndex) {
     }
 
     // Update Loop Function
-    const clock = new THREE.Clock();
-
-    let cameraTheta = 0;
-    function RotateCamera() {
-        cameraTheta += (-0.2 * Math.PI * clock.getDelta());
-        CAMERA.position.set(CAMERA_RADIUS * Math.sin(cameraTheta), 0, CAMERA_RADIUS * Math.cos(cameraTheta));
-        CAMERA.lookAt(new THREE.Vector3(0, 0, 0));
-    }
-
     function draw() { 
-        RotateCamera();
+        CONTROLS.update();
+        CAMERA.lookAt(new THREE.Vector3(0, 0, 0));
+
         RENDERER.render(SCENE, CAMERA);
         requestAnimationFrame(draw);
     }

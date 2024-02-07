@@ -1,104 +1,110 @@
 import * as THREE from "three";
-import ObjectLoader from "./ObjectLoader";
+import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 
-function SetMeshTransform({mesh, position = undefined, rotation = undefined, scale = undefined}) {
-    if(typeof position !== 'undefined') {
-        mesh.position.set(position.x, position.y, position.z);
-    }
-
-    if(typeof rotation !== 'undefined') {
-        mesh.rotation.x = rotation.x; mesh.rotation.y = rotation.y; mesh.rotation.z = rotation.z;
-    }
-
-    if(typeof scale !== 'undefined') {
-        mesh.scale.set(scale.x, scale.y, scale.z);
-    }
-}
-
-export class Headphone {
-    constructor({url, scene, position = undefined, rotation = undefined, scale = undefined, mesh = undefined}) {
-        this.scene = scene;
-        this.mesh = undefined;
-
-        ObjectLoader.load(url, (obj) => {
-            this.LoadBasic({obj, position, rotation, scale, mesh});
-            console.log("[ Headphone - " + url + " ] ", this.mesh);
-        });
-    }
-
-    LoadBasic({obj, position = undefined, rotation = undefined, scale = undefined, mesh = undefined}) {
-        if(typeof position !== 'undefined') {
-            obj.position.set(position.x, position.y, position.z);
-        }
-
-        if(typeof rotation !== 'undefined') {
-            obj.rotation.x = rotation.x; obj.rotation.y = rotation.y; obj.rotation.z = rotation.z;
-        }
-        
-        if(typeof scale !== 'undefined') {
-            obj.scale.set(scale.x, scale.y, scale.z);
-        }
-
-        this.mesh = new THREE.Object3D();
-        this.mesh.add(obj);
-
-        if(mesh !== undefined) {
-            this.mesh.position.set(mesh.position.x, mesh.position.y, mesh.position.z);
-            this.mesh.rotation.x = mesh.rotation.x; this.mesh.rotation.y = mesh.rotation.y; this.mesh.rotation.z = mesh.rotation.z;
-            this.mesh.scale.set(mesh.scale.x, mesh.scale.y, mesh.scale.z);
-        }
-
-        this.scene.add(this.mesh);
-    }
-}
-
-export class HeadphoneOne extends Headphone {
+export class HeadphoneOne {
     constructor({ scene, position = undefined, rotation = undefined, scale = undefined}) {
-        const url = "./models/headphone_1.obj";
+        new MTLLoader()
+            .setPath("./models/headphone_1/")
+            .load("headphone_1.mtl", ( materials ) => {
+                materials.preload();
+                new OBJLoader()
+                    .setMaterials( materials )
+                    .setPath("./models/headphone_1/")
+                    .load("headphone_1.obj", ( object ) => {
+                        this.mesh = new THREE.Object3D();
+                        this.mesh.add(object);
 
-        const mesh = new THREE.Object3D();
-        SetMeshTransform({mesh: mesh, position: position, rotation: rotation, scale: scale});
+                        if(position !== undefined) {
+                            this.mesh.position.set(position.x, position.y, position.z);
+                        }
 
-        super({
-            url: url, 
-            scene: scene,
-            mesh: mesh
-        });
+                        if(scale !== undefined) {
+                            this.mesh.scale.set(scale.x, scale.y, scale.z);
+                        }
+
+                        if(rotation !== undefined) {
+                            this.mesh.rotation.x = rotation.x;
+                            this.mesh.rotation.y = rotation.y;
+                            this.mesh.rotation.z = rotation.z;
+                        }
+
+                        scene.add(this.mesh);
+                    });
+            });
     }
 }
 
-export class HeadphoneTwo extends Headphone {
+export class HeadphoneTwo {
     constructor({scene, position = undefined, rotation = undefined, scale = undefined}) {
-        const url = "./models/headphone_2.obj";
+        new MTLLoader()
+            .setPath("./models/headphone_2/")
+            .load("headphone_2.mtl", ( materials ) => {
+                materials.preload();
+                new OBJLoader()
+                    .setMaterials( materials )
+                    .setPath("./models/headphone_2/")
+                    .load("headphone_2.obj", ( object ) => {
+                        object.position.set(0, -3, 0);
+                        object.rotation.y = Math.PI / 2;
+                        object.scale.set(30, 30, 30);
 
-        const mesh = new THREE.Object3D();
-        SetMeshTransform({mesh: mesh, position: position, rotation: rotation, scale: scale});
+                        this.mesh = new THREE.Object3D();
+                        this.mesh.add(object);
 
-        super({
-            url: url, 
-            scene: scene, 
-            position: new THREE.Vector3(0, -3, 0), 
-            rotation: new THREE.Vector3(0, Math.PI / 2, 0), 
-            scale: new THREE.Vector3(30, 30, 30),
-            mesh: mesh
-        });
+                        if(position !== undefined) {
+                            this.mesh.position.set(position.x, position.y, position.z);
+                        }
+
+                        if(scale !== undefined) {
+                            this.mesh.scale.set(scale.x, scale.y, scale.z);
+                        }
+
+                        if(rotation !== undefined) {
+                            this.mesh.rotation.x = rotation.x;
+                            this.mesh.rotation.y = rotation.y;
+                            this.mesh.rotation.z = rotation.z;
+                        }
+
+                        scene.add(this.mesh);
+                    });
+            });
     }
 }
 
-export class HeadphoneThree extends Headphone {
+export class HeadphoneThree {
     constructor({scene, position = undefined, rotation = undefined, scale = undefined}) {
-        const url = "./models/headphone_3.obj";
+        new MTLLoader()
+            .setPath("./models/headphone_3/")
+            .load("uploads_files_4604677_untitled.mtl", ( materials ) => {
+                materials.preload();
+                new OBJLoader()
+                    .setMaterials( materials )
+                    .setPath("./models/headphone_3/")
+                    .load("uploads_files_4604677_untitled.obj", ( object ) => {
+                        object.position.set(0, -6.5, 0);
+                        object.rotation.y = Math.PI / 2;
+                        object.scale.set(0.5, 0.5, 0.5);
 
-        const mesh = new THREE.Object3D();
-        SetMeshTransform({mesh: mesh, position: position, rotation: rotation, scale: scale});
+                        this.mesh = new THREE.Object3D();
+                        this.mesh.add(object);
 
-        super({
-            url: url, 
-            scene: scene, 
-            position: new THREE.Vector3(0, -6.5, 0), 
-            rotation: new THREE.Vector3(0, Math.PI / 2, 0), 
-            scale: new THREE.Vector3(0.5, 0.5, 0.5),
-            mesh: mesh
-        });
+                        if(position !== undefined) {
+                            this.mesh.position.set(position.x, position.y, position.z);
+                        }
+
+                        if(scale !== undefined) {
+                            this.mesh.scale.set(scale.x, scale.y, scale.z);
+                        }
+
+                        if(rotation !== undefined) {
+                            this.mesh.rotation.x = rotation.x;
+                            this.mesh.rotation.y = rotation.y;
+                            this.mesh.rotation.z = rotation.z;
+                        }
+
+                        scene.add(this.mesh);
+                    });
+            });
     }
 }
