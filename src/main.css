@@ -99,3 +99,27 @@
     left: 0;
 
 }
+
+#slide2 .slide2-page-button {
+    width: 50px;
+    height: 150px;
+    position: absolute;
+    z-index: 2;
+
+    border: none;
+}
+
+#slide2 #slide2-prev {
+    left: 0;
+    top: 45vh;
+    background: url("./images/ui/left-arrow.png") center no-repeat;
+    background-size: cover;
+}
+
+#slide2 #slide2-next {
+    right: 50vw;
+    top: 45vh;
+    background: url("./images/ui/left-arrow.png") center no-repeat;
+    background-size: cover;
+    transform: rotateY(180deg);
+}

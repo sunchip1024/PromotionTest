@@ -52,11 +52,11 @@ export function execute(modelIndex) {
 
     // Load Headset Model
     let model = undefined;
-    if(modelIndex === 1) {
+    if(modelIndex === 0) {
         model = new HeadphoneOne({scene: SCENE});
-    } else if(modelIndex === 2) {
+    } else if(modelIndex === 1) {
         model = new HeadphoneTwo({scene: SCENE});
-    } else if(modelIndex === 3) {
+    } else if(modelIndex === 2) {
         model = new HeadphoneThree({scene: SCENE});
     }
 

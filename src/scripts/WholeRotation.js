@@ -57,8 +57,8 @@ export function execute() {
     CONTROLS.rotateSpeed = 0.3;
     CONTROLS.minPolarAngle = Math.PI / 2;
     CONTROLS.maxPolarAngle = Math.PI / 2;
-    CONTROLS.minAzimuthAngle = -(CAMERA_HORIZONTAL_ANGLE / 2);
-    CONTROLS.maxAzimuthAngle = (CAMERA_HORIZONTAL_ANGLE / 2);
+    CONTROLS.minAzimuthAngle = -(CAMERA_HORIZONTAL_ANGLE * 0.6);
+    CONTROLS.maxAzimuthAngle = (CAMERA_HORIZONTAL_ANGLE * 0.6);
 
     // Set Light
     const LIGHT = new THREE.AmbientLight();
