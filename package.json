@@ -1,15 +1,17 @@
+
 {
-  "name": "headsetpromotion",
+  "name": "headphone-dev",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cross-env NODE_ENV=production webpack --progress",
     "start": "webpack serve --progress"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
+
   "devDependencies": {
     "@babel/cli": "^7.23.9",
     "@babel/core": "^7.23.9",

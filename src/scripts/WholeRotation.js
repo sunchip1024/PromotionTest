@@ -27,12 +27,7 @@ export function execute() {
         50
     );
     CAMERA.position.set(0, 0, CAMERA_RADIUS);
-    /*
-    CAMERA_ORIGIN.add(CAMERA);
-    CAMERA.position.set(0, 0, CAMERA_RADIUS);
-    CAMERA.lookAt(CAMERA_ORIGIN.position);
-    */
-
+    
     // Set Renderer
     const RENDERER = new THREE.WebGLRenderer({canvas: CANVAS, antialias: true});
     RENDERER.setSize(window.innerWidth, window.innerHeight);
@@ -74,17 +69,22 @@ export function execute() {
 
     const models = [];
     models.push(new HeadphoneOne({
-        scene: SCENE, 
+        url: "./models/headphone1.fbx",
+        scene: SCENE,
         position: GetModelPosition(0),
         rotation: new THREE.Vector3(0, GetModelRotation(0), 0)
     }));
+    
     models.push(new HeadphoneTwo({
-        scene: SCENE, 
+        url: "./models/headphone2.fbx",
+        scene: SCENE,
         position: GetModelPosition(1),
         rotation: new THREE.Vector3(0, GetModelRotation(1), 0)
     }));
+    
     models.push(new HeadphoneThree({
-        scene: SCENE, 
+        url: "./models/headphone3.fbx",
+        scene: SCENE,
         position: GetModelPosition(2),
         rotation: new THREE.Vector3(0, GetModelRotation(2), 0)
     }));

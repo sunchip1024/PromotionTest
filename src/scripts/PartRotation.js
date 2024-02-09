@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/Orbitcontrols";
-import { HeadphoneOne, HeadphoneTwo, HeadphoneThree } from "./Headphone";
+import { Headphone, HeadphoneOne, HeadphoneTwo, HeadphoneThree } from "./Headphone";
 
 export function execute(modelIndex) {
     // Set Canvas
@@ -52,12 +52,18 @@ export function execute(modelIndex) {
 
     // Load Headset Model
     let model = undefined;
-    if(modelIndex === 0) {
-        model = new HeadphoneOne({scene: SCENE});
-    } else if(modelIndex === 1) {
-        model = new HeadphoneTwo({scene: SCENE});
-    } else if(modelIndex === 2) {
-        model = new HeadphoneThree({scene: SCENE});
+    switch(modelIndex) {
+        case 0:
+            model = new HeadphoneOne({ scene: SCENE });
+            break;
+        
+        case 1:
+            model = new HeadphoneTwo({ scene: SCENE });
+            break;
+
+        case 2:
+            model = new HeadphoneThree({ scene: SCENE });
+            break;
     }
 
     // Update Loop Function
