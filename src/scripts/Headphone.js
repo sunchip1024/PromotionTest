@@ -18,22 +18,26 @@ function SetMeshPosition(mesh, position = undefined, rotation = undefined, scale
 }
 
 export class Headphone {
-    constructor({ url, scene, position = undefined, rotation = undefined, scale = undefined, mesh = undefined }) {
+    constructor({ url, scene = undefined, position = undefined, rotation = undefined, scale = undefined, parent = undefined }) {
+        this.mesh = undefined;
+
         const loader = new FBXLoader();
         loader.load(url, ( object ) => {
             SetMeshPosition(object, position, rotation, scale);
 
             this.mesh = new THREE.Object3D();
             this.mesh.add(object);
-            SetMeshPosition(this.mesh, mesh.position, mesh.rotation, mesh.scale);
+            SetMeshPosition(this.mesh, parent.position, parent.rotation, parent.scale);
 
-            scene.add(this.mesh);
+            if(scene !== undefined) {
+                scene.add( this.mesh );
+            }
         });
     }
 }
 
 export class HeadphoneOne extends Headphone {
-    constructor({ scene, position = undefined, rotation = undefined, scale = undefined }) {
+    constructor({ scene = undefined, position = undefined, rotation = undefined, scale = undefined }) {
         const mesh = new THREE.Object3D();
         SetMeshPosition(mesh, position, rotation, scale);
 
@@ -43,13 +47,13 @@ export class HeadphoneOne extends Headphone {
             position: new THREE.Vector3(0, 0, 0),
             rotation: new THREE.Vector3(0, 0, 0),
             scale: new THREE.Vector3(0.01, 0.01, 0.01),
-            mesh: mesh
+            parent: mesh
         });
     }
 }
 
 export class HeadphoneTwo extends Headphone {
-    constructor({ scene, position = undefined, rotation = undefined, scale = undefined }) {
+    constructor({ scene = undefined, position = undefined, rotation = undefined, scale = undefined }) {
         const mesh = new THREE.Object3D();
         SetMeshPosition(mesh, position, rotation, scale);
 
@@ -59,13 +63,13 @@ export class HeadphoneTwo extends Headphone {
             position: new THREE.Vector3(0, -2.5, 0),
             rotation: new THREE.Vector3(0, Math.PI / 2, 0),
             scale: new THREE.Vector3(0.3, 0.3, 0.3),
-            mesh: mesh
+            parent: mesh
         });
     }
 }
 
 export class HeadphoneThree extends Headphone {
-    constructor({ scene, position = undefined, rotation = undefined, scale = undefined }) {
+    constructor({ scene = undefined, position = undefined, rotation = undefined, scale = undefined }) {
         const mesh = new THREE.Object3D();
         SetMeshPosition(mesh, position, rotation, scale);
 
@@ -75,7 +79,7 @@ export class HeadphoneThree extends Headphone {
             position: new THREE.Vector3(0, -6, 0),
             rotation: new THREE.Vector3(0, Math.PI / 2, 0),
             scale: new THREE.Vector3(0.005, 0.005, 0.005),
-            mesh: mesh
+            parent: mesh
         });
     }
 }
