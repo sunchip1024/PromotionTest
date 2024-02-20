@@ -40,7 +40,7 @@ export function execute(modelIndex) {
     SCENE.add(LIGHT);
 
     const pointLight = new THREE.PointLight( 0xffffff, 15 );
-	CAMERA.add( pointLight );
+	  CAMERA.add( pointLight );
     SCENE.add(CAMERA);
 
     const CONTROLS = new OrbitControls( CAMERA, RENDERER.domElement );
